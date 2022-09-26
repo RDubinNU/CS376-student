@@ -190,28 +190,30 @@ namespace Assets.Serialization
             switch (o)
             {
                 case null:
-                    throw new NotImplementedException("Fill me in");
+                    Write("null");
                     break;
 
                 case int i:
-                    throw new NotImplementedException("Fill me in");
+                   Write(i);
                     break;
 
                 case float f:
-                    throw new NotImplementedException("Fill me in");
+                    Write(f);
                     break;
 
                 // Not: don't worry about handling strings that contain quote marks
                 case string s:
-                    throw new NotImplementedException("Fill me in");
+                    Write("\"");
+                    Write(s);
+                    Write("\"");
                     break;
 
                 case bool b:
-                    throw new NotImplementedException("Fill me in");
+                    Write(b);
                     break;
 
                 case IList list:
-                    throw new NotImplementedException("Fill me in");
+                    WriteList(list);
                     break;
 
                 default:
@@ -225,13 +227,61 @@ namespace Assets.Serialization
 
         /// <summary>
         /// Serialize a complex object (i.e. a class object)
-        /// If this object has already been output, just output #id, where is is it's id from GetID.
+        /// If this object has already been output, just output #id, where id is it's id from GetID.
         /// If it hasn't then output #id { type: "typename", field: value ... }
         /// </summary>
         /// <param name="o">Object to serialize</param>
         private void WriteComplexObject(object o)
         {
-            throw new NotImplementedException("Fill me in");
+
+            /// Previous Serialization Handling
+            (int objID, bool newObj) = GetId(o);
+
+            /// Already serialized
+            if (!newObj) {
+
+                Write("#");
+                Write(objID);
+
+            } else {
+
+                /// Gather Info
+
+                string typename = o.GetType().Name;
+                IEnumerable<KeyValuePair<string, object>> fields = Utilities.SerializedFields(o);
+
+                /// Serialize the Object
+                Write("#");
+                Write(objID);
+
+                WriteBracketedExpression("{",
+                () => 
+                {
+                Write("type: ");
+                WriteObject(typename);
+                Write(",");
+                
+                bool first = true;
+                foreach (KeyValuePair<string, object> field in fields) {
+                    if (first) {
+                        first = false;
+                    } else {
+                        Write(",");
+                        NewLine();
+                    }
+                    Write(field.Key);
+                    Write(": ");
+                    WriteObject(field.Value);
+
+                }
+                }
+                ,
+                "}");
+
+            }
+
+
+           
         }
     }
 }
