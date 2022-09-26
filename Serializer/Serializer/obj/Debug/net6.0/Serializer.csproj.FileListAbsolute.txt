@@ -22,3 +22,15 @@ C:\Users\ianho\Documents\GitHub\CS376-student\Serializer\Serializer\obj\Debug\ne
 C:\Users\ianho\Documents\GitHub\CS376-student\Serializer\Serializer\obj\Debug\net6.0\refint\Serializer.dll
 C:\Users\ianho\Documents\GitHub\CS376-student\Serializer\Serializer\obj\Debug\net6.0\Serializer.pdb
 C:\Users\ianho\Documents\GitHub\CS376-student\Serializer\Serializer\obj\Debug\net6.0\ref\Serializer.dll
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\Serializer.csproj.AssemblyReference.cache
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\Serializer.GeneratedMSBuildEditorConfig.editorconfig
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\Serializer.AssemblyInfoInputs.cache
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\Serializer.AssemblyInfo.cs
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\Serializer.csproj.CoreCompileInputs.cache
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\Serializer.dll
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\refint\Serializer.dll
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\bin\Debug\net6.0\Serializer.deps.json
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\bin\Debug\net6.0\Serializer.dll
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\bin\Debug\net6.0\Serializer.pdb
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\Serializer.pdb
+d:\Northwestern\Y3\CS 376\CS376-student\Serializer\Serializer\obj\Debug\net6.0\ref\Serializer.dll
