@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{14C8BEFA-706E-2763-C7C5-CCAFC2B63E12}</ProjectGuid>
+    <ProjectGuid>{2A4AB031-1901-6E3C-82CC-560784B96369}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,17 +53,11 @@
     <UnityVersion>2021.3.10f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Player.cs" />
-    <Compile Include="Assets\Orb.cs" />
-    <Compile Include="Assets\Enemy.cs" />
-    <Compile Include="Assets\Respawner.cs" />
-    <Compile Include="Assets\SpawnUtilities.cs" />
-    <Compile Include="Assets\FpsDisplay.cs" />
-    <Compile Include="Assets\Spawner.cs" />
-    <Compile Include="Assets\ScoreKeeper.cs" />
+    <Compile Include="Assets\Driver.cs" />
+    <Compile Include="Assets\BarGraph.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
