@@ -20,6 +20,8 @@ public class Spawner : MonoBehaviour
     /// </summary>
     public float FreeRadius = 10;
 
+    public float timer = 0;
+
     /// <summary>
     /// Check if we need to spawn and if so, do so.
     /// </summary>
@@ -27,5 +29,13 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         // TODO
+
+        if (Time.time > timer) {
+
+            Vector2 spawnPoint = SpawnUtilities.RandomFreePoint(FreeRadius);
+            GameObject enemy = Instantiate(Prefab, spawnPoint, Quaternion.identity);
+           
+            timer += SpawnInterval;
+        }
     }
 }

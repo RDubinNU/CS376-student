@@ -51,5 +51,7 @@ public class ScoreKeeper : MonoBehaviour
     private void ScorePointsInternal(int delta)
     {
         // TODO
+        Score += delta;
+        scoreDisplay.text = Score.ToString();
     }
 }
