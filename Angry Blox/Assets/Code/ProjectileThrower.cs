@@ -71,7 +71,29 @@ public class ProjectileThrower : MonoBehaviour {
     /// <returns></returns>
     bool WaitingForPhysicsToSettle()
     {
-        return true;  // Replace this
+
+        bool readyToReset = true;
+        if (IsActive(myRigidBody.gameObject))
+        {
+            readyToReset = false;
+        }
+
+        GameObject targetsCollection = GameObject.Find("Targets");
+        Rigidbody2D[] targets = targetsCollection.GetComponentsInChildren<Rigidbody2D>();
+        
+        foreach (Rigidbody2D target in targets)
+        {
+            if (IsActive(target.gameObject))
+            {
+                readyToReset = false;
+            }
+        }
+
+        if (readyToReset == false) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /// <summary>
@@ -86,6 +108,11 @@ public class ProjectileThrower : MonoBehaviour {
     internal void Update()
     {
         FireControl();
+        bool physics = WaitingForPhysicsToSettle();
+        if ((firingState == FiringState.Firing && physics == false) || Input.GetKeyDown(KeyCode.Escape)) {
+            ResetForFiring();
+        }
+
     }
 
     /// <summary>
