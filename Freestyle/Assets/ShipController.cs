@@ -8,22 +8,28 @@ public class ShipController : MonoBehaviour
 
     // Variables
 
-    public Transform tf;
+    public GameObject BulletPrefab;
 
     private float move_speed = 0.1f;
+
+    private int max_cooldown = 1000;
+
+    private int cooldown = 0;
+
+    private float bullet_speed = 0.1f;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        tf = (Transform)GetComponent<Transform>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
@@ -31,7 +37,7 @@ public class ShipController : MonoBehaviour
     {
 
         MoveShip();
-
+        FireControl();
 
     }
 
@@ -49,12 +55,39 @@ public class ShipController : MonoBehaviour
         else if (Input.GetKey("right"))
         {
             pos.x += move_speed;
-            tf.position = pos;
+            transform.position = pos;
         }
         else if (Input.GetKey("left"))
         {
             pos.x -= move_speed;
-            tf.position = pos;
+            transform.position = pos;
         }
+    }
+
+
+    void FireControl()
+    {
+
+        if (cooldown == 0 && Input.GetKey("space"))
+        {
+            Debug.Log("Test");
+            Fire();
+            cooldown = max_cooldown;
+        } else
+        {
+            if (cooldown > 0) {
+                cooldown -= 1;
+            }
+        }
+
+
+    }
+
+        void Fire()
+    {
+        Vector3 bullet_spawn = transform.position + 1.5f * transform.up;
+        GameObject bullet = Instantiate(BulletPrefab, bullet_spawn, Quaternion.identity);
+        Rigidbody2D bullet_rig = (Rigidbody2D)bullet.GetComponent<Rigidbody2D>();
+        bullet_rig.velocity = bullet_speed * transform.up;
     }
 }
