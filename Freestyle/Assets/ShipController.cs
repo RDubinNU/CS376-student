@@ -12,11 +12,11 @@ public class ShipController : MonoBehaviour
 
     private float move_speed = 0.1f;
 
-    private int max_cooldown = 1000;
+    private int max_cooldown = 25;
 
     private int cooldown = 0;
 
-    private float bullet_speed = 0.1f;
+    private float bullet_speed = 10f;
 
 
 
@@ -38,6 +38,7 @@ public class ShipController : MonoBehaviour
 
         MoveShip();
         FireControl();
+        checkForEnd();
 
     }
 
@@ -70,7 +71,6 @@ public class ShipController : MonoBehaviour
 
         if (cooldown == 0 && Input.GetKey("space"))
         {
-            Debug.Log("Test");
             Fire();
             cooldown = max_cooldown;
         } else
@@ -85,9 +85,31 @@ public class ShipController : MonoBehaviour
 
         void Fire()
     {
-        Vector3 bullet_spawn = transform.position + 1.5f * transform.up;
+        Vector3 bullet_spawn = transform.position + 0.5f * transform.up;
         GameObject bullet = Instantiate(BulletPrefab, bullet_spawn, Quaternion.identity);
         Rigidbody2D bullet_rig = (Rigidbody2D)bullet.GetComponent<Rigidbody2D>();
         bullet_rig.velocity = bullet_speed * transform.up;
     }
+
+    void checkForEnd()
+    {
+        // Check for end
+        GameObject enemies = GameObject.Find("Enemies");
+        BoxCollider2D[] colliders = enemies.GetComponentsInChildren<BoxCollider2D>();
+
+        if (colliders.Length == 0)
+        {
+            Enemy.spawnNewWave();
+        }
+    }
+
+    void OnBecameInvisible()
+    {
+        // Reset if off screen
+        Vector3 pos = transform.position;
+        pos.x = 0;
+        transform.position = pos;
+
+    }
+
 }

@@ -7,15 +7,15 @@ public class BulletController : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (collision.collider.tag == "Enemy")
         {
-            Debug.Log("hello");
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 
