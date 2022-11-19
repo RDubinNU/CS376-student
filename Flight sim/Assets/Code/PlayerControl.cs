@@ -102,6 +102,30 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
+    private void FixedUpdate()
+    {
+
+        Vector3 cur_rotation = playerRB.rotation.eulerAngles;
+
+        float roll = Input.GetAxis("Horizontal") * RollRange;
+        roll = Mathf.Lerp(roll, cur_rotation.z, 0.1f);
+
+        float pitch = Input.GetAxis("Vertical") * PitchRange;
+        pitch = Mathf.Lerp(pitch, cur_rotation.x, 0.1f);
+        Debug.Log("y" + roll);
+
+        float delta_yaw = roll * RotationalSpeed;
+        float yaw = cur_rotation.y;
+
+        Quaternion rotational_Quarternion = Quaternion.Euler(pitch, yaw, roll);
+
+
+        playerRB.MoveRotation(rotational_Quarternion);
+
+
+
+    }
+
     /// <summary>
     /// Display status information
     /// </summary>
