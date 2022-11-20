@@ -105,17 +105,23 @@ public class PlayerControl : MonoBehaviour {
     private void FixedUpdate()
     {
 
+        // Do rotations
         Vector3 cur_rotation = playerRB.rotation.eulerAngles;
 
         float roll = Input.GetAxis("Horizontal") * RollRange;
-        roll = Mathf.Lerp(roll, cur_rotation.z, 0.1f);
 
         float pitch = Input.GetAxis("Vertical") * PitchRange;
-        pitch = Mathf.Lerp(pitch, cur_rotation.x, 0.1f);
-        Debug.Log("y" + roll);
+        if (cur_rotation.x > 180)
+        {
+            cur_rotation.x -= 360;
+        }
+        pitch = Mathf.Lerp(cur_rotation.x, pitch, 0.01f);
+        
 
-        float delta_yaw = roll * RotationalSpeed;
-        float yaw = cur_rotation.y;
+        float delta_yaw = -roll * RotationalSpeed;
+        float yaw = cur_rotation.y + delta_yaw;
+        yaw = Mathf.Lerp(cur_rotation.y, yaw, 0.01f);
+
 
         Quaternion rotational_Quarternion = Quaternion.Euler(pitch, yaw, roll);
 
@@ -123,7 +129,40 @@ public class PlayerControl : MonoBehaviour {
         playerRB.MoveRotation(rotational_Quarternion);
 
 
+        // Thrust
+        float th = Input.GetAxis("Thrust") * MaximumThrust;
+        Debug.Log(th);
+        if (th > 0)
+        {
+            playerRB.AddForce(transform.forward * th);
+        }
 
+
+        // Lift and drag
+
+        // Wind velocities
+
+        Collider[] updrafts = Physics.OverlapSphere(transform.position, 1, LayerMask.GetMask("Updrafts"));
+
+        Vector3 relative_wind_speed = -playerRB.velocity;
+        if (updrafts.Length != 0)
+        {
+            Vector3 ud = updrafts[0].GetComponent<Updraft>().WindVelocity;
+            relative_wind_speed = ud + relative_wind_speed;
+        }
+        float v_f = Vector3.Dot(relative_wind_speed, transform.forward);
+        float v_up = Vector3.Dot(relative_wind_speed, transform.up);
+
+        
+
+
+        Vector3 lift = LiftCoefficient * Mathf.Pow(v_f, 2) * transform.up;
+        Vector3 forward_drag = Mathf.Sign(v_f) * ForwardDragCoefficient * Mathf.Pow(v_f, 2) * transform.forward;
+        Vector3 vertical_drag = Mathf.Sign(v_up) * VerticalDragCoefficient * Mathf.Pow(v_up, 2) * transform.up;
+
+        playerRB.AddForce(lift);
+        playerRB.AddForce(forward_drag);
+        playerRB.AddForce(vertical_drag);
     }
 
     /// <summary>
@@ -136,4 +175,21 @@ public class PlayerControl : MonoBehaviour {
             transform.position.y,
             thrust);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        float velocity = playerRB.velocity.magnitude;
+        Debug.Log(velocity);
+        if (collision.gameObject.GetComponent<LandingPlatform>()) {
+            LandingPlatform platform = collision.gameObject.GetComponent<LandingPlatform>();
+            if (velocity < platform.MaxLandingSpeed)
+            {
+                OnGameOver(true);
+            } else
+            {
+                OnGameOver(false);
+            }
+        }
+    }
+
 }
