@@ -131,7 +131,6 @@ public class PlayerControl : MonoBehaviour {
 
         // Thrust
         float th = Input.GetAxis("Thrust") * MaximumThrust;
-        Debug.Log(th);
         if (th > 0)
         {
             playerRB.AddForce(transform.forward * th);
@@ -178,8 +177,7 @@ public class PlayerControl : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        float velocity = playerRB.velocity.magnitude;
-        Debug.Log(velocity);
+        float velocity = collision.relativeVelocity.magnitude;
         if (collision.gameObject.GetComponent<LandingPlatform>()) {
             LandingPlatform platform = collision.gameObject.GetComponent<LandingPlatform>();
             if (velocity < platform.MaxLandingSpeed)
